@@ -1,6 +1,7 @@
 package com.microsoft.hack.whatthediet.utils;
 
 import com.microsoft.hack.whatthediet.models.FoodItem;
+import com.microsoft.hack.whatthediet.models.Nutrition;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class FoodItemHelper {
     private static HashMap<String, FoodItem> sampleFoodItems = new HashMap<>();
 
     static {
-
+        //Idly
+        Nutrition idliNutrition;
     }
 }
