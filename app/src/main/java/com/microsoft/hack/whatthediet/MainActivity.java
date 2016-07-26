@@ -1,15 +1,26 @@
 package com.microsoft.hack.whatthediet;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.microsoft.hack.whatthediet.fragments.LoadFoodMenuFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FragmentManager mFragmentManager;
+    private LinearLayout mLinearLayoutFragmentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +29,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        mFragmentManager = getSupportFragmentManager();
+        mLinearLayoutFragmentContainer = (LinearLayout) findViewById(R.id.linearLayoutFragmentContainer);
+
+        launchFoodMenuScannerFragment();
     }
 
     @Override
@@ -49,4 +57,24 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void launchFoodMenuScannerFragment() {
+        loadFragment(LoadFoodMenuFragment.instantiate(), false);
+    }
+
+    private void loadFragment(Fragment fragment, boolean addToBackstack) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.replace(R.id.linearLayoutFragmentContainer, fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.commit();
+    }
+
 }
