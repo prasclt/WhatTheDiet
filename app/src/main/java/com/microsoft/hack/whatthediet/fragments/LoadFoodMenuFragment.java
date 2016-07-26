@@ -26,6 +26,7 @@ public class LoadFoodMenuFragment extends Fragment {
     private TextView mTextViewHeader;
     private RecyclerView mRecyclerViewFoodMenu;
     private FloatingActionButton mFab;
+    private RecyclerView mRecyclerViewFoodmenu;
 
     private Activity mActivity;
 
